@@ -16,7 +16,7 @@
 
 	<properties>
 		<java.version>17</java.version>
-		<sonar.organization>ultracrepidarianiste</sonar.organization>
+		<sonar.organization>Ultracrepidarianiste</sonar.organization>
 	</properties>
 	<dependencies>
 		<dependency>
