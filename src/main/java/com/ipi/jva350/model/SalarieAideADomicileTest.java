@@ -2,6 +2,11 @@ package com.ipi.jva350.model;
 
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
+import java.time.LocalDate;
+import java.util.LinkedHashSet;
+
+
+import static org.testng.Assert.*;
 
 public class SalarieAideADomicileTest {
     // Attendu qu'on ait un False
@@ -11,7 +16,7 @@ public class SalarieAideADomicileTest {
         SalarieAideADomicile s = new SalarieAideADomicile();
 
         //When
-        s.setJoursTravaillesAnneeNMoins1(0);
+        s.setJoursTravaillesAnneeNMoins1(10);
         //then
         assertFalse(s.aLegalementDroitADesCongesPayes());
         // assertTrue(s.aLegalementDroitADesCongesPayes());
@@ -29,8 +34,52 @@ public class SalarieAideADomicileTest {
         // assertFalse(s.aLegalementDroitADesCongesPayes());
     }
 
-    // SalarieAideADomicile.calculeJoursDeCongeDecomptesPourPlage().
+    // Attendu que ça soit False pour SalarieAideADomicile.calculeJoursDeCongeDecomptesPourPlage()
+    @Test
+    public void testCalculeJoursDeCongeDecomptesPourPlage_simpleNON() {
+        // GIVEN
+        SalarieAideADomicile s = new SalarieAideADomicile();
+        LocalDate debut = LocalDate.of(2024, 1, 2);
+        LocalDate fin   = LocalDate.of(2024, 1, 4);
 
+        // WHEN
+        LinkedHashSet<LocalDate> jours = s.calculeJoursDeCongeDecomptesPourPlage(debut, fin);
+
+        // THEN
+        assertFalse(jours.contains(LocalDate.of(2024, 1, 1)));
+    }
+
+    // Attendu que ça soit True pour SalarieAideADomicile.calculeJoursDeCongeDecomptesPourPlage()
+    @Test
+    public void testCalculeJoursDeCongeDecomptesPourPlage_simpleOUI() {
+        // GIVEN
+        SalarieAideADomicile s = new SalarieAideADomicile();
+        LocalDate debut = LocalDate.of(2024, 1, 2);
+        LocalDate fin   = LocalDate.of(2024, 1, 4);
+
+        // WHEN
+        LinkedHashSet<LocalDate> jours = s.calculeJoursDeCongeDecomptesPourPlage(debut, fin);
+
+        // THEN
+        assertTrue(jours.contains(LocalDate.of(2024, 1, 2)));
+        assertTrue(jours.contains(LocalDate.of(2024, 1, 3)));
+        assertTrue(jours.contains(LocalDate.of(2024, 1, 4)));
+    }
+
+    // Attendu que le equals renvoie True pour SalarieAideADomicile.calculeJoursDeCongeDecomptesPourPlage()
+    @Test
+    public void testCalculeJoursDeCongeDecomptesPourPlage_simpleSIZE() {
+        // GIVEN
+        SalarieAideADomicile s = new SalarieAideADomicile();
+        LocalDate debut = LocalDate.of(2024, 1, 2);
+        LocalDate fin   = LocalDate.of(2024, 1, 4);
+
+        // WHEN
+        LinkedHashSet<LocalDate> jours = s.calculeJoursDeCongeDecomptesPourPlage(debut, fin);
+
+        // THEN
+        assertEquals(jours.size(), 3);
+    }
 
 
 
